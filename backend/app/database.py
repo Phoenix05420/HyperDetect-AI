@@ -1,31 +1,19 @@
-from ravendb import DocumentStore
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
 from .config import settings
-import os
 
-class RavenDBConnection:
-    def __init__(self, url, database, cert_path):
-        self.store = None
-        try:
-            if cert_path and os.path.exists(cert_path):
-                self.store = DocumentStore(urls=[url], database=database, certificate=cert_path)
-            else:
-                self.store = DocumentStore(urls=[url], database=database)
-            self.store.initialize()
-        except Exception as e:
-            print("Failed to initialize RavenDB DocumentStore:", e)
-        
-    def close(self):
-        if self.store is not None:
-            self.store.close()
-            
-    def get_store(self):
-        return self.store
-
-db_connection = RavenDBConnection(
-    settings.ravendb_url, 
-    settings.ravendb_database, 
-    settings.ravendb_certificate_path
+# Neon DB (Postgres) Engine
+engine = create_engine(
+    settings.database_url,
+    pool_pre_ping=True
 )
 
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
+
 def get_db():
-    return db_connection.get_store()
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

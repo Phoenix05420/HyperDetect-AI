@@ -1,7 +1,8 @@
 fastapi
 uvicorn[standard]
 pydantic
-ravendb
+sqlalchemy
+psycopg2-binary
 numpy
 pandas
 scikit-learn
