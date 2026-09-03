@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+pydantic
+motor
+pymongo
+numpy
+pandas
+scikit-learn
+torch
+torchvision
+spectral
+opencv-python-headless
+Pillow
+matplotlib
+scipy
+python-multipart
