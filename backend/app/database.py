@@ -1,25 +1,31 @@
-from neo4j import GraphDatabase
+from ravendb import DocumentStore
 from .config import settings
+import os
 
-class Neo4jConnection:
-    def __init__(self, uri, user, pwd):
-        self.__uri = uri
-        self.__user = user
-        self.__pwd = pwd
-        self.__driver = None
+class RavenDBConnection:
+    def __init__(self, url, database, cert_path):
+        self.store = None
         try:
-            self.__driver = GraphDatabase.driver(self.__uri, auth=(self.__user, self.__pwd))
+            if cert_path and os.path.exists(cert_path):
+                self.store = DocumentStore(urls=[url], database=database, certificate=cert_path)
+            else:
+                self.store = DocumentStore(urls=[url], database=database)
+            self.store.initialize()
         except Exception as e:
-            print("Failed to create the driver:", e)
+            print("Failed to initialize RavenDB DocumentStore:", e)
         
     def close(self):
-        if self.__driver is not None:
-            self.__driver.close()
+        if self.store is not None:
+            self.store.close()
             
-    def get_driver(self):
-        return self.__driver
+    def get_store(self):
+        return self.store
 
-db_connection = Neo4jConnection(settings.neo4j_uri, settings.neo4j_user, settings.neo4j_password)
+db_connection = RavenDBConnection(
+    settings.ravendb_url, 
+    settings.ravendb_database, 
+    settings.ravendb_certificate_path
+)
 
 def get_db():
-    return db_connection.get_driver()
+    return db_connection.get_store()

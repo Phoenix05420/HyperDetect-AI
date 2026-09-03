@@ -2,9 +2,9 @@ import os
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    neo4j_uri: str = os.getenv("NEO4J_URI", "bolt://localhost:7687")
-    neo4j_user: str = os.getenv("NEO4J_USER", "neo4j")
-    neo4j_password: str = os.getenv("NEO4J_PASSWORD", "password")
+    ravendb_url: str = os.getenv("RAVENDB_URL", "https://a.free.bharani-flow.ravendb.cloud")
+    ravendb_database: str = os.getenv("RAVENDB_DATABASE", "HyperDetectAI")
+    ravendb_certificate_path: str = os.getenv("RAVENDB_CERTIFICATE_PATH", "")
     upload_dir: str = os.getenv("UPLOAD_DIR", "./uploads")
     results_dir: str = os.getenv("RESULTS_DIR", "./results")
     max_file_size: int = int(os.getenv("MAX_FILE_SIZE", 524288000))
