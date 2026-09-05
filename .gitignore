@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Environment variables
+.env
+!.env.example
+
+# Node / Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.dist/
+.eslintcache
+
+# Machine Learning & Upload Data / Cache
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/results/*
+!backend/results/.gitkeep
+backend/data/
+*.joblib
+*.pkl
+*.npy
+*.hdr
+*.raw
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

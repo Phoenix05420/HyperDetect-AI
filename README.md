@@ -29,7 +29,7 @@
 - Data Processing: NumPy, Pandas, Scikit-learn
 - Deep Learning: PyTorch
 - Hyperspectral & Imaging: Spectral Python (SPy), OpenCV, Pillow, Matplotlib
-- Database: MongoDB (Motor for Async operations)
+- Database: PostgreSQL (SQLAlchemy + Neon DB)
 
 ## Directory Structure
 
@@ -50,10 +50,11 @@ hyperdetect-ai/
 - Docker (for MongoDB)
 
 ### 1. Database Setup
-Start the MongoDB instance using Docker:
+Configure PostgreSQL connection string in `.env`:
 ```bash
-docker-compose up -d
+DATABASE_URL=postgresql://user:password@localhost/hyperdetect
 ```
+The application uses SQLAlchemy with PostgreSQL. Tables are created automatically on startup.
 
 ### 2. Backend Setup
 Navigate into the backend directory, install the required packages, and start the FastAPI server:

@@ -11,10 +11,10 @@ def test_connection():
         with engine.connect() as connection:
             result = connection.execute(text("SELECT version();"))
             version = result.scalar()
-            print(f"✅ Successfully connected to Neon DB!")
+            print(f"[SUCCESS] Successfully connected to Neon DB!")
             print(f"Database Version: {version}")
     except Exception as e:
-        print("❌ Error connecting to Neon DB:")
+        print("[ERROR] Error connecting to Neon DB:")
         print(e)
 
 if __name__ == "__main__":
